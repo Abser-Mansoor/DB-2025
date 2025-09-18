@@ -1,0 +1,10 @@
+select department, sum(fee) as total_fees from student group by department having sum(fee) > 1000000;
+select department from faculty where salary > 100000 group by department having count(*) > 5;
+delete from student where gpa < (select avg(gpa) from student);
+delete from course where course_id not in (select distinct course_id from enrollment);
+create table HighFee_Students as select * from student where fee > (select avg(fee) from student);
+create table Retired_Faculty as select * from faculty where joining_date < (select min(joining_date) from faculty);
+select department from (select department, sum(fee) as total_fees from student group by department order by total_fees desc) where rownum = 1;
+select course from (select course, count(*) as enrollment_count from student group by course order by enrollment_count desc) where rownum <= 3;
+select student_name from student where student_id in (select student_id from enrollment group by student_id having count(*) > 3) and gpa > (select avg(gpa) from student);
+create table Unassigned_Faculty as select * from faculty where faculty_id not in (select distinct faculty_id from teaching);
