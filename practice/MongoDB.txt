@@ -1,0 +1,97 @@
+show dbs;
+use personal;
+db.createCollection("students");
+show collections;
+db.students.renameCollection("student");
+
+--------Insert Commands----------
+db.students.insertOne({ name: "ali", city: "karachi" ,age :23 });
+db.students.insertMany([
+  { name: "ali", city: "karachi" , age :27},
+  { name: "asim", city: "lahore" }
+]);
+
+
+--------READ (Find commands)-------
+db.students.find(); -- it will find all
+
+
+SELECT * FROM students WHERE city = 'Karachi';
+db.students.find({ city: "Karachi" });
+
+
+SELECT * FROM students WHERE name = 'ali' AND dept = 'CS';
+db.students.find({ name: "ali", age: 21 });
+
+
+SELECT * FROM students WHERE city = 'Karachi' OR city = 'Lahore';
+db.students.find({
+  $or: [
+    { city: "karachi" },
+    { city: "lahore" }
+  ]
+});
+
+
+SELECT * FROM students WHERE id IN (101, 102, 103);
+db.students.find({
+  _id: { $in: [101, 102, 103] }
+});
+
+
+SELECT * FROM students WHERE city <> 'Karachi';
+db.students.find({ city: { $ne: "karachi" } });
+
+
+SELECT * FROM students WHERE age > 20;
+db.students.find({ age: { $gt: 20 } });
+
+
+SELECT * FROM students WHERE age <= 21;
+db.students.find({ age: { $lte: 21} });
+
+
+SELECT * FROM students WHERE name LIKE 'A%';
+db.students.find({ name: /^a/ });
+
+
+SELECT * FROM students ORDER BY name ASC;
+db.students.find().sort({ name: 1 });
+
+
+
+SELECT * FROM students LIMIT 5;
+db.students.find().limit(5);
+
+
+SELECT COUNT(*) FROM students;
+db.students.countDocuments();
+
+
+
+UPDATE students SET city = 'Lahore' WHERE id = 101;
+db.students.updateOne(
+  { _id: 101 },
+  { $set: { city: "Lahore" } }
+);
+
+
+-----delete----
+db.students.deleteOne({ name: "ali" });
+
+
+db.dropDatabase();
+db.students.drop();
+
+
+
+---aggregate---
+db.students.aggregate([
+  { $group: { _id: "$city", total: { $sum: 1 } } }
+]);
+
+
+db.students.aggregate([
+  { $group: { _id: "$city", avgAge: { $avg: "$age" } } }
+]);
+
