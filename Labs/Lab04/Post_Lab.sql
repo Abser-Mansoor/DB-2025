@@ -1,10 +1,17 @@
-select department, sum(fee) as total_fees from student group by department having sum(fee) > 1000000;
-select department from faculty where salary > 100000 group by department having count(*) > 5;
-delete from student where gpa < (select avg(gpa) from student);
-delete from course where course_id not in (select distinct course_id from enrollment);
-create table HighFee_Students as select * from student where fee > (select avg(fee) from student);
-create table Retired_Faculty as select * from faculty where joining_date < (select min(joining_date) from faculty);
-select department from (select department, sum(fee) as total_fees from student group by department order by total_fees desc) where rownum = 1;
-select course from (select course, count(*) as enrollment_count from student group by course order by enrollment_count desc) where rownum <= 3;
-select student_name from student where student_id in (select student_id from enrollment group by student_id having count(*) > 3) and gpa > (select avg(gpa) from student);
-create table Unassigned_Faculty as select * from faculty where faculty_id not in (select distinct faculty_id from teaching);
+select itemName from MenuItem where isAvailable = 0 AND price > 500;
+
+select itemName from MenuItem where (category = 'Beverage' AND price > 300) OR category = 'Dessert';
+
+select itemName, price from MenuItem where category = 'Snack' AND isAvailable = 1;
+
+select itemName, price/100 from MenuItem where category = 'Snack' AND isAvailable = 1;
+
+select Supplies.supplierID from Supplies left join MenuItem on Supplies.itemID = MenuItem.itemID where itemName = 'Cappucino';
+
+select Employee.name, Cafe.cafeName from Employee left join Cafe on Employee.cafeID = Cafe.cafeID where Employee.cafeID = Cafe.cafeID AND Employee.address = Cafe.city;
+
+select empID from Employee where salary != 50000;
+
+select supplierID from Supplier where city = 'Karachi' INTERSECT select supplierID from Supplier where city = 'Lahore';
+
+select itemName from MenuItem except select MenuItem.itemName from MenuItem left join Supplies on MenuItem.itemID = Supplies.itemID;
