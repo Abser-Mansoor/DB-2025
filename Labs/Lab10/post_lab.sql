@@ -54,8 +54,8 @@ create table fees (
 );
 
 insert into fees values (1, 'Ali', 2000, 5000);
-insert into fees values (2, 'Sara', 3000, 5000);
-insert into fees values (3, 'Ahmed', 1500, 5000);
+insert into fees values (2, 'Abser', 3000, 5000);
+insert into fees values (3, 'Fasih', 1500, 5000);
 
 commit;
 
@@ -108,11 +108,11 @@ create table employees (
   salary    number
 );
 
-insert into employees values (1, 'Ahsan', 30000);
+insert into employees values (1, 'Abser', 30000);
 insert into employees values (2, 'Bilal', 35000);
-insert into employees values (3, 'Hassan', 32000);
-insert into employees values (4, 'Usman', 40000);
-insert into employees values (5, 'Zain', 45000);
+insert into employees values (3, 'Uneeb', 32000);
+insert into employees values (4, 'Ali', 40000);
+insert into employees values (5, 'Zaid', 45000);
 
 commit;
 
